@@ -5,7 +5,7 @@ import { Router } from 'express'
 import bcypt from 'bcryptjs'
 
 
-const router = express.Router();
+const router = Router();
 
 router.post('/register',async (req,res)=>{
     const {name,email,password} = req.body;
