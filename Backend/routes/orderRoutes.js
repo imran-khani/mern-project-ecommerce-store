@@ -1,4 +1,4 @@
-import Order from '../models/Order';
+import Order from '../models/Order.js';
 import { Router } from 'express';
 
 
@@ -52,3 +52,5 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ message: 'server error' })
     }
 })
+
+export default router

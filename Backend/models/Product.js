@@ -27,4 +27,5 @@ const productSchema = new mongoose.Schema({
     imageUrl: { type: String, required: true }
 },{timestamps:true})
 
-export default Product = mongoose.model('Product', productSchema)
+const Product = mongoose.model('Product', productSchema)
+export default Product;
