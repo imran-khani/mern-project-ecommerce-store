@@ -1,4 +1,3 @@
-import express from 'express'
 import User from '../models/User'
 import jwt from 'jsonwebtoken'
 import { Router } from 'express'
