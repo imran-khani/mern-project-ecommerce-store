@@ -25,6 +25,6 @@ const productSchema = new mongoose.Schema({
         default: 0,
     },
     imageUrl: { type: String, required: true }
-})
+},{timestamps:true})
 
 export default Product = mongoose.model('Product', productSchema)
