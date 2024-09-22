@@ -1,6 +1,5 @@
-// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetails';
@@ -10,34 +9,42 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageProducts from './pages/admin/ManageProducts';
 import ManageOrders from './pages/admin/ManageOrders';
 import ManageUsers from './pages/admin/ManageUsers';
-
-// src/App.tsx
 import PrivateRoute from './components/PrivateRoute';
 
+// Define the routes using createBrowserRouter
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navbar />, // Optional: Layout component if you have a common navbar for all routes
+    children: [
+      { path: '', element: <Home /> }, // Home route
+      { path: 'product/:id', element: <ProductDetail /> }, // Product detail route
+      { path: 'cart', element: <Cart /> }, // Cart route
+      { path: 'profile', element: <PrivateRoute><Profile /></PrivateRoute> }, // Profile, protected route
+      {
+        path: 'admin',
+        element: <PrivateRoute adminOnly><AdminDashboard /></PrivateRoute>, // Admin dashboard, protected route
+      },
+      {
+        path: 'admin/products',
+        element: <PrivateRoute adminOnly><ManageProducts /></PrivateRoute>, // Manage products, protected route
+      },
+      {
+        path: 'admin/orders',
+        element: <PrivateRoute adminOnly><ManageOrders /></PrivateRoute>, // Manage orders, protected route
+      },
+      {
+        path: 'admin/users',
+        element: <PrivateRoute adminOnly><ManageUsers /></PrivateRoute>, // Manage users, protected route
+      },
+    ],
+  },
+]);
 
-
+// The main App component with RouterProvider
 const App: React.FC = () => {
   return (
-    <Router>
-      <Navbar />
-      <div className="container mx-auto mt-6">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/products" element={<ManageProducts />} />
-          <Route path="/admin/orders" element={<ManageOrders />} />
-          <Route path="/admin/users" element={<ManageUsers />} />
-          <Route path="/admin" element={<PrivateRoute adminOnly={true}><AdminDashboard /></PrivateRoute>} />
-          <Route path="/admin/products" element={<PrivateRoute adminOnly={true}><ManageProducts /></PrivateRoute>} />
-          <Route path="/admin/orders" element={<PrivateRoute adminOnly={true}><ManageOrders /></PrivateRoute>} />
-          <Route path="/admin/users" element={<PrivateRoute adminOnly={true}><ManageUsers /></PrivateRoute>} />
-
-        </Routes>
-      </div>
-    </Router>
+    <RouterProvider router={router} />
   );
 };
 
