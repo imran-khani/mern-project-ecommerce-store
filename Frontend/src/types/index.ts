@@ -16,3 +16,19 @@ export interface Product {
     email: string;
     isAdmin: boolean;
   }  
+
+export interface Order {
+  _id: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  products: {
+    product: string;
+    quantity: number;
+  }[];
+  totalPrice: number;
+  orderStatus: string;
+  createdAt: string;
+}
